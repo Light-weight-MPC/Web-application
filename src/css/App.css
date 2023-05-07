@@ -1,0 +1,20 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.Header {
+  width: 100%;
+  display: flex;
+  background-color: rgb(180, 180, 180);
+  color: rgba(255,19,68,255);
+}
+
+.Footer {
+  margin-top: auto;
+  background-color: #b4b4b4;
+  width: 100%;
+  justify-content: center;
+}
