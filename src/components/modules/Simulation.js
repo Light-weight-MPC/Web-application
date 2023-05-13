@@ -11,7 +11,7 @@ const initSimParam = {scenario: "", T: 0, nCV: 0, nMV: 0};
  * Describe the simulation module for plotting data
  * @param {React.useState} simData MPC simulation data  
  */
-export default function Simulation({simData, P, simRef}) {
+export default function Simulation({simData}) {
 
     const [simAvaliable, setSimAvaliable] = useState(false);
     const [simParam, setSimParam] = useState(initSimParam);
@@ -21,13 +21,12 @@ export default function Simulation({simData, P, simRef}) {
     useEffect(() => {
         if (simData === "") {
             setSimAvaliable(false);
-            return;
         } else {
+            console.log(simData)
             const json_sim = JSON.parse(simData);
             setSimParam(readSimParams(json_sim));
             setCVs(readSimCV(json_sim));
             setMVs(readSimMV(json_sim));
-            
         }
     }, [simData]);
 
@@ -44,13 +43,13 @@ export default function Simulation({simData, P, simRef}) {
                     <Box sx={{pl: "2%", pt: "1%"}}>
                         <Typography variant="h5"> {"Scenario: " + simParam.scenario} </Typography>
                     </Box>
-                    <OutputCharts CVs={CVs} T={simParam.T} P={P} refData={simRef}/>
-                    <ActuationCharts MVs={MVs} T={simParam.T} P={P} />
+                    <OutputCharts CVs={CVs} T={simParam.T} P={simParam.P}/>
+                    <ActuationCharts MVs={MVs} T={simParam.T} />
                 </Box>
 
             : <Box sx={{width: "inherit", pt: 3}}>
                 <Box sx={{pl: "2%"}}>
-                    <Typography variant="h5"> No simulation avaliable! </Typography>
+                    <Typography variant="h5"> Scenario: No simulation avaliable! </Typography>
                 </Box>
             </Box>
         }
