@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Box } from '@mui/material';
-import { PlotPrediction, PlotActuation } from "../../utils/plot.js";
+import { PlotPrediction, PlotActuation } from "./plot.js";
 
 const PLOTS_PER_ROW = 2;
 
