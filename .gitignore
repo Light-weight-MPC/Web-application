@@ -156,6 +156,5 @@ sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/react,node
 
-build/
 node_modules/
 package-lock.json
