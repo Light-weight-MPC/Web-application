@@ -8,19 +8,21 @@ const RED = 'rgb(255, 0, 0)';
 const PURPLE = 'rgb(128, 0, 128)';
 
 export function PlotPrediction(cv_data, T, P) {
-    let t = Array.from({ length: T+P }, (value, index) => index);
-    let lower = Array(T+P).fill(cv_data.c[0]);
-    let upper = Array(T+P).fill(cv_data.c[1]);
+    let t = Array.from({ length: T+P+1 }, (value, index) => index);
+    let lower = Array(T+P+1).fill(cv_data.c[0]);
+    let upper = Array(T+P+1).fill(cv_data.c[1]);
 
     var output = {
-        x: t.slice(0, T),
-        y: cv_data.y_pred.slice(0, T),
+        x: t.slice(0, T+1),
+        y: cv_data.y_pred.slice(0, T+1),
         name: "Output",
         type: "line",
         line: {
             color: PURPLE
         }
     };
+
+    console.log(cv_data.ref.length)
 
     var ref_plot = {
         x: t,
@@ -101,8 +103,8 @@ export function PlotActuation(mv_data, T, M) {
     let upper = Array(T+M).fill(mv_data.c[1]);
 
     var actuation = {
-        x: t.slice(0, T),
-        y: mv_data.u.slice(0, T),
+        x: t.slice(0, T+1),
+        y: mv_data.u.slice(0, T+1),
         name: "Actuation",
         type: 'scatter',
         line: {

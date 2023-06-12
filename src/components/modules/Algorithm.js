@@ -35,7 +35,7 @@ export default function Algorithm() {
             <Box sx={{ width: '75%', pl: "5%", pt: "3%"}}>
                 <Typography variant="h4" sx={{fontWeight: 'bold'}}> MPC-FSRM algorithm: </Typography>
                 <Typography variant="body1" gutterBottom>
-                Implemented using <Link href="https://github.com/gotvinne/Light-weight-MPC/tree/main/src/OSQP-Eigen" underline="hover"> {"osqp-eigen"} </Link>
+                Implemented using <Link href="https://github.com/robotology/osqp-eigen" underline="hover"> {"osqp-eigen"} </Link>
                 C++ wrapper for the <Link href="https://osqp.org/" underline="hover"> {"OSQP"} </Link> software: See chapter 2.3: Model Predictive Control for Finite Step Response Model for more information.
                 </Typography>
                 <Typography variant="body1" gutterBottom>
@@ -50,17 +50,11 @@ export default function Algorithm() {
                 This MPC controller is defined as a standard quadratic program (QP) where the cost aims to minimize the error between the output <InlineMath math={"Y"}/> and the reference <InlineMath math={"r_y"} />:
                 </Typography>
 
-                <BlockMath math={`\\min \\sum_{j=W+1}^{P}\\left|(y(k+j \\mid k)-r_y(k+j))\\right|_{\\bar{\\boldsymbol{Q}}}^2+ \\sum_{j=0}^{(M-1)} \\left|\\Delta u(k+j)\\right|_{\\boldsymbol{\\bar{R}}}^2+\\bar{\\rho} \\bar{\\epsilon}+\\underline{\\rho} \\underline{\\epsilon}`} />
+                <BlockMath math={`\\min \\sum_{j=W+1}^{P}\\left|(Y(k+j \\mid k)-\\mathcal{T}(k+j))\\right|_{\\bar{\\boldsymbol{Q}}}^2+ \\sum_{j=0}^{(M-1)} \\left|\\Delta U(k+j)\\right|_{\\boldsymbol{\\bar{R}}}^2+\\bar{\\rho} \\bar{\\epsilon}+\\underline{\\rho} \\underline{\\epsilon}`} />
                 <Typography variant="body1" gutterBottom>
-                The cost function is constrained by the model definition and relating variables. The general FSRM-MPC algorithm can be summaried as:
+                The cost function is constrained by the model definition and relating variables. For the general FSRM-MPC algorithm this cost is constrained by:
                 </Typography>
-                <BlockMath math={`min \\quad Y(k+(P-W))^T \\boldsymbol{\\bar{Q}} Y(k+(P-W))+\\Delta U(k+(M-1))^T \\boldsymbol{\\bar{R}} \\Delta U(k+(M-1)) \\\\
-                                        -2 \\mathcal{T}(k)^T \\boldsymbol{\\bar{Q}} Y(k+(P-W))+\\rho_h^T \\epsilon_h+\\rho_l^T \\epsilon_l,`} />
-                <BlockMath math={`s.t. \\quad Y(k+(P-W))  = \\boldsymbol{\\Theta} \\Delta U(k+(M-1))+ \\boldsymbol{\\Phi} \\Delta \\tilde{U}(k)+\\Psi \\tilde{U}(k-N)+B(k), \\
-                                     = \\boldsymbol{\\Theta} \\Delta U(k)+ \\hat{\\boldsymbol{Y}}^{\\boldsymbol{o}}(k+P) + B(k), \\
-                                    = \\boldsymbol{\\Theta} \\Delta U(k)+ \\boldsymbol{\\Lambda}(k),`} />
-                <BlockMath math={`U(k) = \\boldsymbol{K}^{-1}(\\Gamma \\tilde{U}(k-1) + \\Delta U(k)), \\quad B(k) = Y(k) - \\hat{Y}(k), \\quad \\boldsymbol{K} \\succ 0`} />
-                <BlockMath math={`Y(k+j) = Y(k+j) + B(k), \\quad j \\in\\left\\{W+1, \\ldots, P\\right\\}`} />
+                <BlockMath math={`s.t. \\quad Y(k+P) = \\boldsymbol{\\Theta} \\Delta U(k)+ \\boldsymbol{\\Lambda}(k),`} />
                 <BlockMath math={`\\Delta \\underline{U} \\leq \\Delta U(k+j) \\leq \\Delta \\overline{U}, \\quad j \\in\\left\\{0, \\ldots, M-1\\right\\}`} />
                 <BlockMath math={`\\underline{U} \\leq U(k+j) \\leq \\bar{U}, \\quad j \\in\\left\\{0, \\ldots, M-1\\right\\}`} />
                 <BlockMath math={`\\underline{Y}- \\epsilon_l \\leq Y(k+j) \\leq \\bar{Y}+ \\epsilon_h, \\quad \\epsilon_h \\geq 0, \\epsilon_l \\geq 0, \\quad j \\in\\left\\{W+1, \\ldots, P\\right\\}`} />
@@ -156,12 +150,12 @@ export default function Algorithm() {
 
                 <Typography sx={{pt: "2%"}} variant="h5"> Overview of the dimensions used in the controller: </Typography>               
                 <Box sx={{pl: "30%", pt: "2%"}}> 
-                    <TableContainer sx={{width: "50%"}} component={Paper}>
+                    <TableContainer sx={{width: "70%"}} component={Paper}>
                         <Table sx={{ width: "100%" }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Matrix Expression</TableCell>
-                                    <TableCell > Condensed dimensions </TableCell>
+                                    <TableCell> Matrix Expressions </TableCell>
+                                    <TableCell sx={{pl: "20%"}}> Condensed dimensions </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
