@@ -24,7 +24,6 @@ package.json
 Check package.json for react dependancies.
 
 **React dependancies**: 
-- "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
 - "@emotion/react": "^11.10.6",
 - "@emotion/styled": "^11.10.6",
 - "@mui/icons-material": "^5.11.16",
@@ -35,6 +34,7 @@ Check package.json for react dependancies.
 - "@types/jest": "^29.5.1",
 - "@types/react": "^18.2.0",
 - "@types/react-dom": "^18.2.1",
+- "buffer": "^6.0.3",
 - "plotly.js": "^2.22.0",
 - "react": "^18.2.0",
 - "react-app-polyfill": "^3.0.0",
@@ -44,6 +44,7 @@ Check package.json for react dependancies.
 - "react-plotly.js": "^2.6.0",
 - "react-scripts": "^5.0.1",
 - "require-context": "^1.1.0",
+- "stream": "^0.0.2",
 - "web-vitals": "^3.3.1"
 
 ### create-react-app 
